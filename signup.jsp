@@ -25,7 +25,7 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
-<a href="login">ログイン</a>
+<a href="userControl">戻る</a>
 
 <form action="signup" method="post"><br />
 	<label for="name">名前</label>

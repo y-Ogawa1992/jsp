@@ -12,7 +12,7 @@
 	<title>ログイン</title>
 </head>
 <body>
-<a href="signup">登録する</a>
+
 
 <div class="main-contents">
 

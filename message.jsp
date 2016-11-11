@@ -36,11 +36,11 @@
 <div class="form-area">
 	<form action="message" method="post">
 		<br />
-		<label>タイトル</label><br />
-		<textarea name="title"cols="20" rows="1" ></textarea><br /><br />
+		<label>タイトル(50文字以下)</label><br />
+		<textarea name="title"cols="30" rows="1" ></textarea><br /><br />
 		<%-- カテゴリー入力、とりあえず直接入力のみ --%>
-		<label>カテゴリー</label><br />
-		<textarea name="category" cols="10" rows="1"></textarea><br /><br />
+		<label>カテゴリー(10文字以下)</label><br />
+		<textarea name="category" cols="20" rows="1"></textarea><br /><br />
 		<label>本文</label><br />
 		<textarea name="text" cols="70" rows="10" class="tweet-box"></textarea>
 		<br />

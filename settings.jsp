@@ -38,7 +38,7 @@
 	<label for="password2">確認用パスワード</label>
 	<input name="password2" type="password2" id="password2"><br />
 
-		<label for="branch">所属</label>
+	<label for="branch">所属</label>
 	<select name="branch">
 		<c:forEach items="${branch}" var="branch" >
 			<option value="${branch.id}">${branch.name}</option>
