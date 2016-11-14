@@ -55,27 +55,24 @@
 <br /><br /><br /><br /><br />
 
 <%-- 投稿をカテゴリ、投稿日時で絞込（検索する？） --%>
-	<form action="settings" method="get"><br />
-	<label for="category">カテゴリ</label>
+	<form action="./" method="get"><br />
+	<label for="categories">カテゴリ</label>
 	<select name="category">
-		<c:forEach items="${category}" var="category" >
-			<option value="${category.category}">${category.category}</option>
+		<c:forEach items="${categories}" var="categories" >
+			<option value="${categories.category}">${categories.category}</option>
 		</c:forEach>
 	</select>
 	<input type="hidden" name="messageId" value="${message.messageId}">
 
 	<label for="minInsertDate">投稿日時</label>
-	<select name="message">
-		<c:forEach items="${messages}" var="message" >
-			<option value="${message.insertDate}">${message.insertDate}</option>
-		</c:forEach>
-	</select>
+
+	<div class="minInsertDate">
+		<input type="date" name="minInsertDate" value="${insertDate.insertDate}">
+	</div>
 	～
-	<select name="maxInsertDate">
-		<c:forEach items="${messages}" var="message" >
-			<option value="${message.insertDate}">${message.insertDate}</option>
-		</c:forEach>
-	</select>
+	<div class="maxInsertDate">
+		<input type="date" name="maxInsertDate" value="${insertDate.insertDate}">
+	</div>
 	<input type="submit" value="検索">
 	<br><br>
 	</form>
