@@ -15,17 +15,6 @@
 <body>
 <div class="main-contents">
 
-<c:if test="${not empty errorMessages}">
-	<div class="errorMessages">
-		<ul>
-			<c:forEach items="${errorMessages}" var="message">
-				<li><c:out value="${message}" />
-			</c:forEach>
-		</ul>
-	</div>
-	<c:remove var="errorMessages" scope="session"/>
-</c:if>
-
 <%-- 本社人事総務の場合 --%>
 <c:if test="${user.departmentId == 1}">
 	<a href="message">新規投稿</a>
@@ -40,6 +29,16 @@
 </c:if>
 
 
+<c:if test="${not empty errorMessages}">
+	<div class="errorMessages">
+		<ul>
+			<c:forEach items="${errorMessages}" var="message">
+				<li><c:out value="${message}" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var="errorMessages" scope="session"/>
+</c:if>
 
 
 <%--ログイン成功後に自分の情報が表示されるようにする --%>
@@ -58,20 +57,27 @@
 	<form action="./" method="get"><br />
 	<label for="categories">カテゴリ</label>
 	<select name="category">
+	<option value=""></option>
 		<c:forEach items="${categories}" var="categories" >
+		<c:if test="${category == categories.category}">
+			<option value="${categories.category}" selected>${categories.category}</option>
+		</c:if>
+		<c:if test="${category != categories.category}">
 			<option value="${categories.category}">${categories.category}</option>
+		</c:if>
 		</c:forEach>
 	</select>
+
 	<input type="hidden" name="messageId" value="${message.messageId}">
 
-	<label for="minInsertDate">投稿日時</label>
+	<label for="insertDate">投稿日時</label>
 
 	<div class="minInsertDate">
-		<input type="date" name="minInsertDate" value="${insertDate.insertDate}">
+		<input type="date" name="minInsertDate" value="${minInDa[0]}">
 	</div>
 	～
 	<div class="maxInsertDate">
-		<input type="date" name="maxInsertDate" value="${insertDate.insertDate}">
+		<input type="date" name="maxInsertDate"value="${maxInDa[0]}">
 	</div>
 	<input type="submit" value="検索">
 	<br><br>
@@ -123,7 +129,12 @@
 				<div class="text"><c:out value="${comment.text}" /></div>
 				<span class="name"><c:out value="${comment.name}"/></span>
 				<div class="date"><fmt:formatDate value="${comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-
+				<form action="./" method="post">
+					<c:if test="${loginUser.id == comment.userId}">
+					<input type="hidden" name="commentId" value="${comment.id}">
+					<input type="submit" value="コメントを削除">
+				</c:if>
+				</form>
 				</div>
 			</c:if>
 		</c:forEach>
@@ -140,6 +151,6 @@
 </div>
 
 </div>
-<div class="copyright">Copyright(c)Yutaro Ogawa</div>
+<div class="copyright">&copy;Yutaro Ogawa</div>
 </body>
 </html>

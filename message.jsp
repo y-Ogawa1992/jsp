@@ -48,7 +48,7 @@
 	</form>
 </div>
 <br />
-<div class="copyright">Copyright(c)Yutaro Ogawa</div>
+<div class="copyright">&copy;Yutaro Ogawa</div>
 </div>
 </body>
 </html>

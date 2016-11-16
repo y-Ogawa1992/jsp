@@ -14,6 +14,9 @@
 </head>
 <body>
 <div class="main-contents">
+
+<a href="userControl">戻る</a>
+
 <c:if test="${not empty errorMessages}">
 	<div class="errorMessages">
 		<ul>
@@ -24,8 +27,6 @@
 	</div>
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
-
-<a href="userControl">戻る</a>
 
 <form action="signup" method="post"><br />
 	<label for="name">名前</label>
@@ -41,6 +42,7 @@
 
 	<label for="branch">所属</label>
 	<select name="branch">
+	<option value="0">選択</option>
 		<c:forEach items="${branch}" var="branch" >
 			<option value="${branch.id}">${branch.name}</option>
 		</c:forEach>
@@ -49,16 +51,17 @@
 	<br>
 	<label for="department">役職</label>
 	<select name="department">
+	<option value="0">選択</option>
 		<c:forEach items="${department}" var="department">
 			<option value="${department.id}">${department.name}</option>
 		</c:forEach>
 	</select>
 
-
+<br>
 	<input type="submit" value="登録" /><br />
 
 </form>
-<div class="copyright">Copyright(c)Yutaro Ogawa</div>
+<div class="copyright">&copy;Yutaro Ogawa</div>
 </div>
 </body>
 </html>

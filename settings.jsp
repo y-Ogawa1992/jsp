@@ -41,22 +41,33 @@
 	<label for="branch">所属</label>
 	<select name="branch">
 		<c:forEach items="${branch}" var="branch" >
+		<c:if test="${editUser.branchId == branch.id}">
+			<option value="${editUser.branchId}" selected>${branch.name}</option>
+		</c:if>
+		<c:if test="${editUser.branchId != branch.id}">
 			<option value="${branch.id}">${branch.name}</option>
+		</c:if>
 		</c:forEach>
-
 	</select>
+
 	<br>
 	<label for="department">役職</label>
 	<select name="department">
 		<c:forEach items="${department}" var="department">
+		<c:if test="${editUser.departmentId == department.id}">
+			<option selected value="${editUser.departmentId}">${department.name}</option>
+		</c:if>
+		<c:if test="${editUser.departmentId != department.id}">
 			<option value="${department.id}">${department.name}</option>
+		</c:if>
 		</c:forEach>
 	</select>
 
+	<br>
 	<input type="submit" value="更新" /> <br />
 	<a href="userControl">戻る</a>
 </form>
-<div class="copyright">Copyright(c)Yutaro Ogawa</div>
+<div class="copyright">&copy;Yutaro Ogawa</div>
 </div>
 </body>
 </html>
