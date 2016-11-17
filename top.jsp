@@ -3,6 +3,8 @@
 <%@page isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +13,8 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>掲示板</title>
+	<style type="text/css">
+</style>
 </head>
 <body>
 <div class="main-contents">
@@ -90,7 +94,16 @@
 		<div class="title"><c:out value="${message.title}" /></div>
 		<div class="category"><c:out value="${message.category}" /></div>
 		<span class="name"><c:out value="${message.name}"/></span>
-		<div class="text"><c:out value="${message.text}" /></div>
+
+	<div class="text">
+<c:forEach var="s" items="${fn:split(message.text, '
+')}">
+    <div>${s}</div>
+</c:forEach>
+	</div>
+
+
+
 		<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 
 	<%--loginuserのbranchIdが2departmentIdが3で投稿したユーザーのbranchIdが2 --%>
@@ -126,7 +139,12 @@
 		<c:forEach items="${comments}" var="comment">
 			<c:if test="${message.messageId == comment.messageId}">
 				<div class="comment">
-				<div class="text"><c:out value="${comment.text}" /></div>
+				<div class="text">
+				<c:forEach var="s" items="${fn:split(comment.text, '
+')}">
+   					 <div>${s}</div>
+				</c:forEach>
+				</div>
 				<span class="name"><c:out value="${comment.name}"/></span>
 				<div class="date"><fmt:formatDate value="${comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 				<form action="./" method="post">

@@ -40,11 +40,11 @@
 		<%-- カテゴリー入力、とりあえず直接入力のみ --%>
 		<label>カテゴリー(10文字以下)</label><br />
 		<textarea name="category" cols="20" rows="1"></textarea><br /><br />
-		<label>本文</label><br />
-		<textarea name="text" cols="70" rows="10" class="tweet-box"></textarea>
+		<label>本文(1000文字まで)</label><br />
+		<textarea name="text" cols="70" rows="10" class="tweet-box" wrap="hard"></textarea>
 		<br />
 		<br />
-		<input type="submit" value="投稿">(1000文字まで)
+		<input type="submit" value="投稿">
 	</form>
 </div>
 <br />
