@@ -87,24 +87,27 @@
 	<br><br>
 	</form>
 
+
 <%-- トップ画面に投稿を表示する --%>
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
+		<div style="color: green; background-color: lavender;">
 		<div class="message">
-		<div class="title"><c:out value="${message.title}" /></div>
-		<div class="category"><c:out value="${message.category}" /></div>
-		<span class="name"><c:out value="${message.name}"/></span>
+		<div class="title"><FONT size="4">タイトル：<c:out value="${message.title}" /></FONT></div>
+		<span class="name"><FONT size="2">投稿者：<c:out value="${message.name}"/></FONT></span>
+		<div class="date">投稿日時：<fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+		<div class="text">
+	<c:forEach var="s" items="${fn:split(message.text, '
+		')}">
+   		<div>${s}</div>
+	</c:forEach>
+		</div>
+		<div class="category"><FONT size="2">カテゴリ：<c:out value="${message.category}" /></FONT></div>
+</div>
 
-	<div class="text">
-<c:forEach var="s" items="${fn:split(message.text, '
-')}">
-    <div>${s}</div>
-</c:forEach>
-	</div>
 
 
 
-		<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 
 	<%--loginuserのbranchIdが2departmentIdが3で投稿したユーザーのbranchIdが2 --%>
 	<form action="./" method="post">
@@ -135,35 +138,38 @@
 
 
 		<br />
-		<%--ここに投稿に対するコメントを表示する --%>
-		<c:forEach items="${comments}" var="comment">
-			<c:if test="${message.messageId == comment.messageId}">
-				<div class="comment">
-				<div class="text">
-				<c:forEach var="s" items="${fn:split(comment.text, '
+	<%--ここに投稿に対するコメントを表示する --%>
+	<c:forEach items="${comments}" var="comment">
+		<div style="color: black; background-color: #FFC7AF;">
+		<c:if test="${message.messageId == comment.messageId}">
+			<div class="comment">
+			<div class="text">
+			<c:forEach var="s" items="${fn:split(comment.text, '
 ')}">
-   					 <div>${s}</div>
-				</c:forEach>
-				</div>
-				<span class="name"><c:out value="${comment.name}"/></span>
-				<div class="date"><fmt:formatDate value="${comment.insertDate }" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-				<form action="./" method="post">
-					<c:if test="${loginUser.id == comment.userId}">
+				<div>${s}</div>
+			</c:forEach>
+			</div>
+			<span class="name"><FONT size="2"><c:out value="${comment.name}"/></FONT></span>
+			<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+			<form action="./" method="post">
+				<c:if test="${loginUser.id == comment.userId}">
 					<input type="hidden" name="commentId" value="${comment.id}">
 					<input type="submit" value="コメントを削除">
 				</c:if>
-				</form>
-				</div>
-			</c:if>
-		</c:forEach>
+			</form>
+			</div>
+			</div>
+		</c:if>
+	</c:forEach>
 
-		<%--ここにコメントをDB格納する機能 --%>
-		<form action="newComment" method="post">
+
+	<%--ここにコメントをDB格納する機能 --%>
+	<br><br>
+	<form action="newComment" method="post">
 		<input type="hidden" name="messageId" value="${message.messageId}">
-		<label>コメント</label><br />
-		<textarea name="text" cols="30" rows="5" class="tweet-box"></textarea>
+		<textarea name="text" cols="30" rows="5" class="tweet-box" placeholder="コメントを入力することが出来ます"></textarea>
 		<input type="submit" value="投稿にコメント">(500文字まで)<br /><br />
-		</form>
+	</form>
 		</div>
 	</c:forEach>
 </div>
