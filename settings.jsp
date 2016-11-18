@@ -13,6 +13,9 @@
 </head>
 <body>
 <div class="main-contents">
+	<div class="header">
+		<a href="userControl">ユーザー管理</a>
+	</div>
 
 <h2>ユーザー編集画面</h2>
 
@@ -68,7 +71,6 @@
 
 	<br>
 	<input type="submit" value="更新" /> <br />
-	<a href="userControl">戻る</a>
 </form>
 <div class="copyright">&copy;Yutaro Ogawa</div>
 </div>

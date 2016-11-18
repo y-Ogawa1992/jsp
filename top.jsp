@@ -8,11 +8,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 	<link href="./css/style.css" rel="stylesheet" type="text/css">
-
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>掲示板</title>
+
+<script type="text/javascript">
+	<!--
+	function check(){
+			if(window.confirm('削除します。よろしいですか？')){ // 確認ダイアログを表示
+				return true; // 「OK」時は送信を実行
+			}
+			else{ // 「キャンセル」時の処理
+				window.alert('キャンセルされました'); // 警告ダイアログを表示
+				return false; // 送信を中止
+			}
+		}
+	// -->
+</script>
+
 	<style type="text/css">
 </style>
 </head>
@@ -20,16 +33,17 @@
 <div class="main-contents">
 
 <%-- 本社人事総務の場合 --%>
+	<div class="header">
+		<a href="logout">ログアウト</a>
+	</div>
 <c:if test="${user.departmentId == 1}">
 	<a href="message">新規投稿</a>
 	<a href="userControl">ユーザー管理</a>
-	<a href="logout">ログアウト</a>
 </c:if>
 
 <%-- その他の場合 --%>
 <c:if test="${user.departmentId != 1}">
 	<a href="message">新規投稿</a>
-	<a href="logout">ログアウト</a>
 </c:if>
 
 
@@ -72,7 +86,7 @@
 		</c:forEach>
 	</select>
 
-	<input type="hidden" name="messageId" value="${message.messageId}">
+
 
 	<label for="insertDate">投稿日時</label>
 
@@ -84,6 +98,8 @@
 		<input type="date" name="maxInsertDate"value="${maxInDa[0]}">
 	</div>
 	<input type="submit" value="検索">
+
+	<input type="submit" value="絞込解除">
 	<br><br>
 	</form>
 
@@ -105,12 +121,9 @@
 		<div class="category"><FONT size="2">カテゴリ：<c:out value="${message.category}" /></FONT></div>
 </div>
 
-
-
-
-
-	<%--loginuserのbranchIdが2departmentIdが3で投稿したユーザーのbranchIdが2 --%>
-	<form action="./" method="post">
+<br>
+	<%-- 適切なユーザーに投稿削除ボタン表示 --%>
+	<form action="./" method="post" onSubmit="return check()">
 	<c:if test="${loginUser.departmentId == 2}">
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<input type="submit" value="投稿を削除">
@@ -130,7 +143,7 @@
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<input type="submit" value="投稿を削除">
 	</c:if>
-	<c:if test="${loginUser.id == message.userId}">
+	<c:if test="${loginUser.id == message.userId && loginUser.departmentId == 2}">
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<input type="submit" value="投稿を削除">
 	</c:if>
@@ -147,28 +160,50 @@
 			<c:forEach var="s" items="${fn:split(comment.text, '
 ')}">
 				<div>${s}</div>
+
 			</c:forEach>
 			</div>
 			<span class="name"><FONT size="2"><c:out value="${comment.name}"/></FONT></span>
 			<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-			<form action="./" method="post">
-				<c:if test="${loginUser.id == comment.userId}">
-					<input type="hidden" name="commentId" value="${comment.id}">
-					<input type="submit" value="コメントを削除">
-				</c:if>
+
+			<form action="./" method="post" onSubmit="return check()">
+			<c:if test="${loginUser.departmentId == 2}">
+				<input type="hidden" name="commentId" value="${comment.commentId}">
+				<input type="submit" value="コメントを削除">
+			</c:if>
+			<c:if test="${loginUser.branchId == 2 && loginUser.departmentId == 3 &&
+					comment.branchId == 2 && comment.departmentId == 4}">
+				<input type="hidden" name="commentId" value="${comment.commentId}">
+				<input type="submit" value="コメントを削除">
+			</c:if>
+			<c:if test="${loginUser.branchId == 3 && loginUser.departmentId == 3 &&
+					comment.branchId == 3 && comment.departmentId == 4}">
+				<input type="hidden" name="commentId" value="${comment.commentId}">
+				<input type="submit" value="コメントを削除">
+			</c:if>
+			<c:if test="${loginUser.branchId == 4 && loginUser.departmentId == 3 &&
+					comment.branchId == 4 && comment.departmentId == 4}">
+				<input type="hidden" name="commentId" value="${comment.commentId}">
+				<input type="submit" value="コメントを削除">
+			</c:if>
+			<c:if test="${loginUser.id == comment.userId}">
+				<input type="hidden" name="commentId" value="${comment.commentId}">
+				<input type="submit" value="コメントを削除">
+			</c:if>
 			</form>
 			</div>
-			</div>
 		</c:if>
+		</div>
 	</c:forEach>
 
 
 	<%--ここにコメントをDB格納する機能 --%>
 	<br><br>
+
 	<form action="newComment" method="post">
 		<input type="hidden" name="messageId" value="${message.messageId}">
-		<textarea name="text" cols="30" rows="5" class="tweet-box" placeholder="コメントを入力することが出来ます"></textarea>
-		<input type="submit" value="投稿にコメント">(500文字まで)<br /><br />
+		<textarea name="text" cols="30" rows="5" class="tweet-box" placeholder="コメントを入力することが出来ます(500文字まで)"></textarea>
+		<input type="submit" value="投稿にコメント"><br /><br />
 	</form>
 		</div>
 	</c:forEach>

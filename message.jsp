@@ -16,8 +16,10 @@
 <div class="main-contents">
 
 	<div class="header">
-		<a href="./">ホーム</a>
 		<a href="logout">ログアウト</a>
+	</div>
+	<div class="button">
+		<a href="./">ホーム</a>
 	</div>
 
 <c:if test="${not empty errorMessages}">
@@ -36,12 +38,12 @@
 	<form action="message" method="post">
 		<br />
 		<label>タイトル(50文字以下)</label><br />
-		<textarea name="title"cols="30" rows="1" ></textarea><br /><br />
+		<input type="text" name="title" value="${message.title}" cols="30" rows="1" ></text><br /><br />
 		<%-- カテゴリー入力、とりあえず直接入力のみ --%>
 		<label>カテゴリー(10文字以下)</label><br />
-		<textarea name="category" cols="20" rows="1"></textarea><br /><br />
+		<input type="text" name="category" value="${message.category}" cols="20" rows="1"></text><br /><br />
 		<label>本文(1000文字まで)</label><br />
-		<textarea name="text" cols="70" rows="10" class="tweet-box" wrap="hard"></textarea>
+		<textarea name="text" cols="70" rows="20" class="tweet-box">${message.text}</textarea>
 		<br />
 		<br />
 		<input type="submit" value="投稿">

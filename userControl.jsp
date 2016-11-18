@@ -48,11 +48,15 @@
 
 <body>
 <div class="main-contents">
+	<div class="header">
+		<a href="logout">ログアウト</a>
+	</div>
 
 		<a href="./">ホーム</a>
 		<a href="signup">ユーザー新規登録</a>
-		<a href="logout">ログアウト</a>
 		<br /><br />
+
+<h2>ユーザー管理画面</h2>
 
 <c:if test="${ not empty errorMessages }">
 	<div class="errorMessages">
@@ -96,7 +100,7 @@
 
 				<c:if test="${loginUser.id != User.id}">
 				<c:choose>
-					<c:when test="${User.stop == true}"><input name="stop" type="submit" value="停止中" /></c:when>
+					<c:when test="${User.stop == true}"><FONR color="red"><input name="stop" type="submit" value="停止" /></FONR></c:when>
 					<c:when test="${User.stop == false}"><input name="stop" type="submit" value="稼働中" /></c:when>
 				</c:choose>
 				</c:if>
