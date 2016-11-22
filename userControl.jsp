@@ -72,7 +72,8 @@
 <%-- ユーザー管理画面にユーザー一覧を表示する --%>
 <%-- テーブルを作る --%>
 
-<table class="table4" border=1  cellpadding="2">
+<div class="table">
+<table border=1>
  <tr><th>名前</th><th>ログインID</th><th>所属</th><th>役職</th><th>ON/OFF</th><th>編集</th></tr>
 
 		<c:forEach items="${Users}" var="User">
@@ -85,14 +86,14 @@
 				<td>
 				<c:forEach items="${branch}" var="branch">
 					<c:if test="${User.branchId == branch.id}">
-					<div class="branch"><c:out value="${branch.name}" /></div>
+					<c:out value="${branch.name}" />
 					</c:if>
 				</c:forEach>
 				</td>
 				<td>
 					<c:forEach items="${department}" var="department">
 					<c:if test="${User.departmentId == department.id}">
-					<div class="department"><c:out value="${department.name}" /></div>
+					<c:out value="${department.name}" />
 					</c:if>
 					</c:forEach>
 				</td>
@@ -105,13 +106,13 @@
 				</c:choose>
 				</c:if>
 				</td>
-
-
 				<td><a href="settings?id=${User.id}">編集</a></td>
 			</tr>
 		</form>
 		</c:forEach>
 </table>
+</div>
+
 
 <div class="copyright">&copy;Yutaro Ogawa</div>
 </div>

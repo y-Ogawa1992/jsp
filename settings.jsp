@@ -47,6 +47,7 @@
 	<input name="password2" type="password" id="password" /><br />
 
 
+<c:if test="${loginUser.id != editUser.id}">
 	<label for="branch">所属</label>
 	<select name="branch">
 		<c:forEach items="${branch}" var="branch" >
@@ -71,6 +72,12 @@
 		</c:if>
 		</c:forEach>
 	</select>
+</c:if>
+
+<c:if test="${loginUser.id == editUser.id}">
+	<input type="hidden" name="branch" value="1">
+	<input type="hidden" name="department" value="1">
+</c:if>
 
 	<br>
 	<input type="submit" value="更新" /> <br />

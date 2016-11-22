@@ -96,16 +96,16 @@
 <br>
 
 <%-- トップ画面に投稿を表示する --%>
-<div style="clear: left" class="messages">
+<div class="messages">
 	<c:forEach items="${messages}" var="message">
 		<div style="color: green; background-color: lavender;">
 		<div class="message">
 
-		<div class="title"><FONT size="4">タイトル：<c:out value="${message.title}" /></FONT></div>
+		<div class="title"><FONT size="4">タイトル：<c:out value="${message.title}" /></FONT></div><br>
 
 		<span class="name"><FONT size="2">投稿者：<c:out value="${message.name}"/></FONT></span>
 		<div class="date">投稿日時：<fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-		<div class="text">
+		<div class="text" >
 	<c:forEach var="s" items="${fn:split(message.text, '
 ')}"><br>
    		<c:out value="${s}" />
@@ -197,7 +197,7 @@
 	<form action="newComment" method="post">
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<textarea name="text" cols="30" rows="5" class="tweet-box" placeholder="コメントを入力することが出来ます(500文字まで)"></textarea>
-		<input type="submit" value="投稿にコメント"><br /><br />
+		<input type="submit" value="投稿にコメント"><br><br><br><br><br>
 	</form>
 		</div>
 	</c:forEach>
