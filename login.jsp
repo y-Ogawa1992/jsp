@@ -27,6 +27,8 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<h2>ログイン</h2>
+
 <form action="login" method="post"><br />
 
 

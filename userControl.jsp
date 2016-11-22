@@ -56,8 +56,6 @@
 		<a href="signup">ユーザー新規登録</a>
 		<br /><br />
 
-<h2>ユーザー管理画面</h2>
-
 <c:if test="${ not empty errorMessages }">
 	<div class="errorMessages">
 		<ul>
@@ -69,10 +67,12 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<h2>ユーザー管理</h2>
+
 <%-- ユーザー管理画面にユーザー一覧を表示する --%>
 <%-- テーブルを作る --%>
 
-<table class="table4" border=1>
+<table class="table4" border=1  cellpadding="2">
  <tr><th>名前</th><th>ログインID</th><th>所属</th><th>役職</th><th>ON/OFF</th><th>編集</th></tr>
 
 		<c:forEach items="${Users}" var="User">

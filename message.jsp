@@ -33,6 +33,8 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<h2>新規投稿</h2>
+
 <%-- 掲示板への書き込み機能(DB格納) --%>
 <div class="form-area">
 	<form action="message" method="post">

@@ -14,10 +14,12 @@
 <body>
 <div class="main-contents">
 	<div class="header">
-		<a href="userControl">ユーザー管理</a>
+		<a href="logout">ログアウト</a>
 	</div>
 
-<h2>ユーザー編集画面</h2>
+	<a href="userControl">ユーザー管理</a>
+
+<h2>ユーザー編集</h2>
 
 <c:if test="${not empty errorMessages}">
 	<div class="errorMessages">
@@ -38,11 +40,12 @@
 	<label for="loginId">ログインID</label>
 	<input name="loginId" value="${editUser.loginId}" /><br />
 
-	<label for="password">変更用パスワード</label>
+	<label for="password">パスワード</label>
 	<input name="password" type="password" id="password"/><br />
 
 	<label for="password2">確認用パスワード</label>
-	<input name="password2" type="password2" id="password2"><br />
+	<input name="password2" type="password" id="password" /><br />
+
 
 	<label for="branch">所属</label>
 	<select name="branch">

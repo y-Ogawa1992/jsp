@@ -47,6 +47,9 @@
 </c:if>
 
 
+<%--ログイン成功後に自分の情報が表示されるようにする --%>
+	<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
+
 <c:if test="${not empty errorMessages}">
 	<div class="errorMessages">
 		<ul>
@@ -59,20 +62,12 @@
 </c:if>
 
 
-<%--ログイン成功後に自分の情報が表示されるようにする --%>
-<c:if test="${not empty loginUser }">
-	<div class="profile">
-		<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
 
-		<%--<div class="branch"><c:out value="${loginUser.branchId}" /></div> --%>
-
-	</div>
-</c:if>
-
-<br /><br /><br /><br /><br />
 
 <%-- 投稿をカテゴリ、投稿日時で絞込（検索する？） --%>
-	<form action="./" method="get"><br />
+
+<div class='search-block'>
+	<form action="./" method="get">
 	<label for="categories">カテゴリ</label>
 	<select name="category">
 	<option value=""></option>
@@ -86,42 +81,39 @@
 		</c:forEach>
 	</select>
 
-
-
 	<label for="insertDate">投稿日時</label>
 
-	<div class="minInsertDate">
+	<label class="minInsertDate"></label>
 		<input type="date" name="minInsertDate" value="${minInDa[0]}">
-	</div>
 	～
-	<div class="maxInsertDate">
+	<label class="maxInsertDate"></label>
 		<input type="date" name="maxInsertDate"value="${maxInDa[0]}">
-	</div>
 	<input type="submit" value="検索">
-
-	<input type="submit" value="絞込解除">
-	<br><br>
+		<a href="./">絞込解除</a>
 	</form>
+</div>
 
+<br>
 
 <%-- トップ画面に投稿を表示する --%>
-<div class="messages">
+<div style="clear: left" class="messages">
 	<c:forEach items="${messages}" var="message">
 		<div style="color: green; background-color: lavender;">
 		<div class="message">
+
 		<div class="title"><FONT size="4">タイトル：<c:out value="${message.title}" /></FONT></div>
+
 		<span class="name"><FONT size="2">投稿者：<c:out value="${message.name}"/></FONT></span>
 		<div class="date">投稿日時：<fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 		<div class="text">
 	<c:forEach var="s" items="${fn:split(message.text, '
-		')}">
-   		<div>${s}</div>
+')}"><br>
+   		<c:out value="${s}" />
 	</c:forEach>
 		</div>
+		<br>
 		<div class="category"><FONT size="2">カテゴリ：<c:out value="${message.category}" /></FONT></div>
 </div>
-
-<br>
 	<%-- 適切なユーザーに投稿削除ボタン表示 --%>
 	<form action="./" method="post" onSubmit="return check()">
 	<c:if test="${loginUser.departmentId == 2}">
@@ -143,12 +135,11 @@
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<input type="submit" value="投稿を削除">
 	</c:if>
-	<c:if test="${loginUser.id == message.userId && loginUser.departmentId == 2}">
+	<c:if test="${loginUser.id == message.userId && loginUser.departmentId != 2}">
 		<input type="hidden" name="messageId" value="${message.messageId}">
 		<input type="submit" value="投稿を削除">
 	</c:if>
 	</form>
-
 
 		<br />
 	<%--ここに投稿に対するコメントを表示する --%>
@@ -158,13 +149,15 @@
 			<div class="comment">
 			<div class="text">
 			<c:forEach var="s" items="${fn:split(comment.text, '
-')}">
-				<div>${s}</div>
+')}"><br>
+			<c:out value="${s}" />
 
 			</c:forEach>
+
 			</div>
+			<br>
 			<span class="name"><FONT size="2"><c:out value="${comment.name}"/></FONT></span>
-			<div class="date"><fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+			<div class="date">投稿日時：<fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 
 			<form action="./" method="post" onSubmit="return check()">
 			<c:if test="${loginUser.departmentId == 2}">
@@ -186,7 +179,7 @@
 				<input type="hidden" name="commentId" value="${comment.commentId}">
 				<input type="submit" value="コメントを削除">
 			</c:if>
-			<c:if test="${loginUser.id == comment.userId}">
+			<c:if test="${loginUser.id == comment.userId && loginUser.departmentId != 2}">
 				<input type="hidden" name="commentId" value="${comment.commentId}">
 				<input type="submit" value="コメントを削除">
 			</c:if>
@@ -194,6 +187,7 @@
 			</div>
 		</c:if>
 		</div>
+
 	</c:forEach>
 
 
